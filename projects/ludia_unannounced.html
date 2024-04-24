@@ -1,0 +1,151 @@
+<!DOCTYPE HTML>
+<!--
+	Phantom by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Milan Irigoyen</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="inner">
+
+							<!-- Logo -->
+								<a href="../index.html" class="logo">
+									<span class="symbol"><img src="../images/logo.svg" alt="" /></span><span class="title">MILAN IRIGOYEN</span>
+								</a>
+
+							<!-- Nav -->
+								<nav>
+									<ul>
+										<li><a href="#menu">Menu</a></li>
+									</ul>
+								</nav>
+
+						</div>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<h2>Menu</h2>
+						<ul>
+							<li><a href="#summary">Summary</a></li>
+							<li><a href="#tdd">Test Driven Development</a></li>
+							<li><a href="#gitflow">Git Flow</a></li>
+							<li><a href="#leading">Acting as substitute tech lead</a></li>
+							<li><a href="#core">Core feature</a></li>
+							<li><a href="#conclusion">Conclusion</a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<h1>Unnanounced project</h1>
+							
+							<h2 id="summary">Summary</h2>
+							<div class="table-wrapper">
+								<table>
+									<tbody>
+										<tr>
+											<td>Company</td>
+											<td><a href="https://www.ludia.com/en">Ludia</a></td>
+										</tr>
+										<tr>
+											<td>Date</td>
+											<td>2019 - present</td>
+										</tr>
+										<tr>
+											<td>Tech</td>
+											<td>Custom engine : C# / Java / Unity</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<p>Unnanounced project of a server mobile authoritative game. The main gameplay logic is done on a Java backend, while the client is a Unity project.
+							<ul>
+								<li>Researching and setting-up a teamwide <a href="https://en.wikipedia.org/wiki/Test-driven_development">Test Driven Development</a> workflow in Unity, based around the  <a href="https://en.wikipedia.org/wiki/Model-view-controller">model view controller</a> and <a href="https://en.wikipedia.org/wiki/Dependency_injection">dependency injection</a> design patterns</li>
+								<li>Setting-up a teamwide <a href="https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow">Git Flow workflow</a> </li>
+								<li>Leading a small team of developers in day-to-day tasks</li>
+								<li>Designing and implementing the first version of the core architecture</li>
+								<li>Designing, implementing and optimizing the core gameplay feature</li>
+							</ul></p>
+							
+							<h2 id="tdd">Test Driven Development</h2>
+							<p>Ever since my arrival at Ludia I have been a vocal advocate of <a href="https://en.wikipedia.org/wiki/Test-driven_development">Test Driven Development</a> and unit testing in general. As the new project entered pre-production I researched ways to unit test as much of the game's logic as possible. As Unity included the <a href="https://docs.unity3d.com/2019.2/Documentation/Manual/testing-editortestsrunner.html">Unity Test Framework</a> in the 2019.2 release, I got to design a development workflow based around it. We refined it with over time (and are still improving it as we go !), and it is now part of our core development worfklow.</p>
+							<p>A big part of this was the design of our actual code, as unit testing can only be fully used if it was carefully planned from the ground up. The design is based on the extensive use of the model view controller and dependency injection patterns. The idea is to isolate all separate components as much as possible behind interfaces that will be injected at runtime. Coupled to a complexified version of the MVC this allows complete separation of gameplay and Unity-specific logic, making the logic easy to unit test.</p>
+							<p>For dependency injection we used <a href="https://github.com/modesttree/Zenject">the Zenject framework</a>.</p>
+							<ul>
+								<li>Fully unit-testable client side gameplay logic</li>
+								<li>Gameplay and UI logic separated, making gameplay flow easier to write and maintain</li>
+								<li>Heavily based around MVC and dependency injection</li>
+							</ul></p>
+							
+							<h2 id="gitflow">Git Flow workflow</h2>
+							<p>This new project also brought the opportunity to switch version control systems. While we used Perforce before, the team took the opportunity to switch to git. The goal was to implement <a href="https://en.wikipedia.org/wiki/CI/CD">CI/CD</a> wherever possible, and git offered more versatility in that regard.</p>
+							<p>This was a challenge as I was the only full time developper experienced in git. It then fell to me to implement the new git worflow. After some discussion, we settled on the classic <a href="https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow">Git Flow workflow</a>, for its versatility and the possibility of tracking multiple releases simultaneously.</p>
+							<p>It then fell to me to train the dev team and art integration team to use git, and smooth out any pain points that arised. While Unity isn't especially "git friendly", most notably by the difficulty to merge Unity prefabs, the team is still using Git and is now more productive than before.</p>
+							<p><ul>
+								<li>Introduced teamwide use of <a href="https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow">Git Flow</a></li>
+								<li>Trained the development and art integration teams in Git</li>
+							</ul></p>
+							
+							<h2 id="leading">Acting as substitute Tech Lead</h2>
+							<p>The main difficulty the development team faced in pre-production and in the early stages of production was twofold. </p>
+							<p>First, the team was made up of a majority of juniors to intermediate level developrs, with the only senior being the lead developer. For this project the lead decided to switch to a manager approach, leaving the vast majority of the actual coding to the rest of the team. Plus the team had next to no experience with backend development, which left many questions unanswered at the end of pre-production. And finally, the role of tech lead had yet to be filled.</br>
+							When we started production, I was appointed as a substitute tech lead while several candidates were being considered for the role. My job was to lead the other developpers in day-to-day development, coordinating the implementation of the different features. I was also the first point of contact for the lead developper, to whom I would present an analysis of any problems we may have and bring potential solutions.</br>
+							I ended up prototyping the core layer of the game which was used for several months. After an actual tech lead was brought to the team I retained some of my coordination duties, which I still have to this day.</br>
+							<p>I believe that at this point I lacked the technical expertise needed for such a task. But this was an invaluable experience for me, which pointed me clearly the areas where I needed to improve. And since when the tech lead arrived he didn't throw everything I did in the garbage can, I would say that all things considered I did a decent job !
+							<ul>
+								<li>Lead a team of 5 junior and intermediate developers for several months in the early stages of production</li>
+							</ul></p>
+							
+							<h2 id="core">Implementing the core gameplay feature</h2>
+							<p>As the game isn't out yet I can't go into much details here. Essentially during later stages of production I was tasked with implementing the core feature of the game, and coordinating other features that have an impact on it.</p>
+							
+							<h2 id="conclusion">Conclusion</h2>
+							<p>As the project has yet to launch, I will hold my final conclusion until then. Nevertheless, undertaking this project is an amazing experience to be part of and I'm very excited to see it launch !</p>
+						</div>
+					</div>
+
+					<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<section>
+								<h2>Contact</h2>
+								<ul class="icons">
+									<li><a href="mailto:milan.irigoyen@gmail.com" class="icon style2 fa-envelope-o"><span class="label">Email</span></a></li>
+									<li><a href="https://www.linkedin.com/in/milan-irigoyen" class="icon style2 fa-linkedin"><span class="label">LinkedIn</span></a></li>
+									<li><a href="https://git.edrevan.com/public" class="icon style2 fa-gitlab"><span class="label">GitLab</span></a></li>
+									<li><a href="https://github.com/m-irigoyen" class="icon style2 fa-github"><span class="label">GitHub</span></a></li>
+								</ul>
+							</section>
+							<ul class="copyright">
+								<li>All rights reserved</li>
+								<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+								<li>Logo: <a href="https://game-icons.net/">Game-Icons</a></li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/browser.min.js"></script>
+			<script src="../assets/js/breakpoints.min.js"></script>
+			<script src="../assets/js/util.js"></script>
+			<script src="../assets/js/main.js"></script>
+
+	</body>
+</html>

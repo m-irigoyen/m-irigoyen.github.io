@@ -1,0 +1,4 @@
+ .\ffmpeg.exe -y -i source.mp4 -r 30 -s 830x530 -c:v libx264 -b:v 3M -strict -2 -movflags faststart destination.mp4
+
+-r : is bit rate
+-s : size

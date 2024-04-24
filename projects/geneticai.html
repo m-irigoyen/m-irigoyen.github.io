@@ -1,0 +1,294 @@
+<!DOCTYPE HTML>
+<!--
+	Phantom by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Milan Irigoyen</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="inner">
+
+							<!-- Logo -->
+								<a href="../index.html" class="logo">
+									<span class="symbol"><img src="../images/logo.svg" alt="" /></span><span class="title">MILAN IRIGOYEN</span>
+								</a>
+
+							<!-- Nav -->
+								<nav>
+									<ul>
+										<li><a href="#menu">Menu</a></li>
+									</ul>
+								</nav>
+
+						</div>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<h2>Menu</h2>
+						<ul>
+							<li><a href="#summary">Summary</a></li>
+							<li><a href="#download">Download</a></li>
+							<li><a href="#breakdown">Project Breakdown</a></li>
+							<li><a href="#heuristics">Heuristics AI</a></li>
+							<li><a href="#heuristics-example">Heuristics AI Examples</a></li>
+							<li><a href="#genetics">Genetic AI</a></li>
+							<li><a href="#genetics-example">Genetic AI Examples</a></li>
+							<li><a href="#conclusion">Conclusion</a></li>
+							<li><a href="#emergence">Emergence Appreciation Corner</a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<h1>Genetic AI</h1>
+							<span class="image main"><img src="geneticai/title.png" alt="" /></span>
+							
+							<h1 id="summary">Summary</h1>
+							<div class="table-wrapper">
+								<table>
+									<tbody>
+										<tr>
+											<td>Date</td>
+											<td>2017 - 2018 (eight months)</td>
+										</tr>
+										<tr>
+											<td>Tech</td>
+											<td>Custom engine : C++ / SFML / GLSL</td>
+										</tr>
+										<tr>
+											<td>Collaborators</td>
+											<td><a href="https://www.artstation.com/chamerlat">Luc Chamerlat</a> (Artist)</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<p>Compete against different bots in this tech demo of a simple racing game.
+							<ul>
+								<li>Artificial intelligence bots using <a href="https://en.wikipedia.org/wiki/Boids">steering behaviors</a> and <a href="https://en.wikipedia.org/wiki/Genetic_algorithm">genetic algorihms</a></li>
+								<li>Fully functional custom UI system</li>
+								<li>Features VFX breakdown of particle systems and shaders</li>
+							</ul></p>
+							
+							<h1 id="download">Download</h1>
+							The code can be found <a href="https://git.edrevan.com/edrevan/podracer">on my GitLab</a>.
+							<div class="table-wrapper">
+								<table>
+									<tbody>
+										<tr>
+											<td>Windows</td>
+											<td><a href="geneticai/GeneticAI-winx32.zip">32 bit</a></td>
+											<td><a href="geneticai/GeneticAI-winx64.zip">64 bit</a></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							
+							<p>
+							<video controls muted> <!--autoplay="autoplay" loop="loop"-->
+								<source src="geneticai/genetic-v-steering2.mp4" type="video/mp4" />
+								Sorry, your browser does not support the video tag !
+							</video>
+							
+							<h1 id="breakdown">Project breakdown</h1>
+							<h2>Context</h2>
+							<p><span class="image left"><img src="geneticai/codingame.png" alt="" /></span>Around march 2016, the <a href="https://www.codingame.comCodingame">Codingame</a> platform launched a coding challenge : make an AI for a 2D racing game in one week. The AI controls two pods and must output simple commands each turn like acceleration and turn angle. I liked the game, so I tried my luck. My AI ranked 686th out of 2 530 contestants. I could only spend a weekend on the contest, so I felt I could've gotten a better score with more time. A couple years later I read <a href="http://files.magusgeek.com/csb/csb_en.html">a postmortem article</a> written by one of the winners describing the genetic algorithm he used for his AI. I was fascinated with the idea, so I dug out my own code and got to work. </p>
+							<p>Somewhere along the way I got bored of looking at my ugly programmer art, so I started experimenting with special effects. That's when my friend and colleague <a href="https://www.artstation.com/chamerlat">Luc Chamerlat</a>, artiste extraordinaire, took a liking to the project and elevated it from "What's that green circle again ?" to "That's one cool looking ship !". You can find an article about his workflow on <a href="https://www.artstation.com/chamerlat/blog/oL6B/prototyping-a-2d-game-using-substance-designer">his Arstation blog</a>.</p>
+							
+							<h2>AI type</h2>
+							<p>Creating any sort of time constrained AI is always challenging. It always begins with a choice : wether to simulate the problem or not.</p>
+							<p>When simulating, you must accurately predict the result of an action in a specific state. In this project, that means building a physics engine. You must know what happens if two pods collide at a certain speed, with a certain angle and acceleration. The more accurate the simulation, the better your AI can use it to choose what to do.<br/>
+							This is obviously a time consuming choice : physics engine are hard to build and make a lot of computations at runtime.</p>
+							For example, you will notice when playing that pods have a lot of momentum and no brakes. Thus the faster you go, the harder it is to turn. Using the heuristic <code>finalTurnAngle = desiredTurnAngle * currentSpeed</code> would make the ship turn faster at high speeds, hopefuly counteracting that.<br/>
+							<p>On the other hand without simualting one can only guess the result of an action. So we need some sort of intuition to determine our next move. For that we use <a href="https://en.wikipedia.org/wiki/Heuristic">heuristics</a>, arbitrary rules that will hopefully guide the AI to a good result. To find heuristics we use good old empirical research : find a good strategy and translate it into simple rules.<br/>
+							Finding the right heuristics is key, and is different for each problem. My submission for the contest was heuristics based, but to make a genetic algorithm I needed the simulation. So I ended up making both.</p>
+							
+							
+							<h2 id="heuristics">The heuristics AI</h2>
+							<p>Before working on the genetic algorithm I first improved my existing AI. I spent about a week refactoring the code and observing the best players. The most popular strategy on the server was to have one pod racing and the other hindering the opponent. But some AIs also dedicated everything to racing and got a high rank. From that I deduced that racing was more important than blocking, and focused on the racer. Here's a summary of the racer algorithm :
+							<pre><code>
+If I'm on a collision course:
+	// The shield makes the pod heavier in collisions, keeping it on trajectory
+	Activate shield
+End If
+
+If I will touch my checkpoint in less than 5 turns :
+	// Momentum usage : the momentum is big in this game, so let's use it to prepare a good trajectory
+	Turn towards the next checkpoint
+	If I will touch my checkpoint during the next turn :
+		// This helps the pod retain a bit of speed
+		Accelerate full power
+	End If
+Else
+	Turn towards checkpoint
+	// Special case to avoid the pod stupidly circling a checkpoint endlessly. dangerZoneDistance is chosen abitrarily
+	If distance to checkpoint less than dangerZoneDistance
+		// Acceleration is reduced if the pod is not aiming directly at the checkpoint
+		// This will make the pod slow down to avoid missing the target
+		Interpolate acceleration	
+	Else
+		If turn angle is less than 120°
+			Accelerate full power
+		Else
+			Do not accelerate
+		End If
+	End If
+End If
+							</code></pre>
+							As you can see the algorithm is pretty simple. Its strength lies in the heuristics. This upgraded algorithm got a ranking of 126th out of 40 000 worldwide players. Decent enough, considering the blocker is garbage compared to other AIs of similar rank.<br/>
+							But we can do better !
+							</p>
+							<h3 id="heuristics-example">Examples</h3>
+							<p>Let's look at a few examples of this AI in action ! We'll start slowly : time attack mode, no opponent blocker.</p>
+							<img src="geneticai/steering-1.gif" alt="" />
+							<p>As you can see above, the AI handles long straight lines with sharp turns pretty well. The momentum usage works wonders here, but this is what it was designed for after all.</p>
+							<p><span class="image right"><img src="geneticai/steering-2.gif" alt=""/></span>It also shines in zig zags, keeping the pod on a nice straight trajectory. It could maybe be a bit faster, but it's efficient enough.<br/>
+							Did you notice that the pod takes very tight bends on checkpoints ? That's due to another heuristic : when turning towards a checkpoint the pod actually aims for a point that is closer to the checkpoint's edge.</p>
+							<p>One obvious flaw is revealed when checkpoints are loosely aligned. The pod stops accelerating to aim at the next checkpoint when it could clearly keep going.
+							<img src="geneticai/steering-3.gif" alt=""/></p>
+							
+							
+							<p>The racer looks fine in time attack. But what about an actual race ? Here is the AI racing itself. Notice how each team has a dedicated blocker and runner.
+							<img src="geneticai/steering-4.gif" alt=""/><br/>
+							Well that was messy.</p>
+							
+							<p>There is a lot to analyze here. The first apparent problem is that pods bump each other all the time. There are generally two kinds of races in this game.<br/>
+							If one team is clearly superior to the other, its an easy victory. Either the racer cruises to the finish line unhindered, or the blocker completely shuts down the opponent runner.<br/>
+							If the two teams are of similar level, it devolves into a bump fest.
+							</p>
+							<p><span class="image right"><img src="geneticai/steering-5.gif" alt=""/></span>Now let's zoom in. The first checkpoint goes badly for the red team. The two runners go for the momentum turn but bump each other midway, to the blue one's advantage. Notice the lack of collision avoidance : the two runners stupidly try to go through one another. And then comes our red blocker's first appearance, heroicly ramming the blue runner (and its own teammate) out of the way !<br/> The runner and blocker have no cooperation which can be a problem sometimes. But they generally play in different areas of the track, so it is mostly fine.<br/>
+							Notice how the red team's AI then switches roles : the orange pod is better positionned to continue the race and becomes the runner while pink goes down to intercept the blue runner later.</p>
+							
+							<p><span class="image left"><img src="geneticai/steering-6.gif" alt=""/></span>Let's focus on the blocker. The algorithm has two states : positionning and ramming. When positionning, the blocker tries to position itself between the opponent runner and its next checkpoint. Then it tries to ram the runner for maximum disruption. As you can see this works pretty well when the blocker has had the time to position itself optimally.<br/>
+							This again shows the runner's lack of collision avoidance. That is obviously a problem, but it's not as big as I thought. As stated above, this algorithm got rank 126 on the worldwide leaderboards. I think that's because it races just fast enough that the opponent blocker doesn't have enough time to position itself properly. It is definitely enough against my own blocker, who generally has five or less significant "blocks" per race.</p>
+							
+							<p>Well, so far so good !</p>
+							
+							
+							<h2 id="genetics">The genetic AI</h2>
+							<h3>Prerequesites</h3>
+							<p>
+							There are a lot of good resources on the net to learn about genetic algorithms. I will only present my approach to this, which is in no way exhaustive.<br/>
+							Let's go over the prerequisites of a genetic algorithm. First, you must represent your problem in terms of genes and genomes.
+							<ul>
+								<li>A gene is simple object that describes an action. The structure of a gene depends on the actions that the AI can do.</li>
+								<li>A genome is a succession of genes. Thus a genome can be seen as a series of actions. The number of genes per genome is specific to your problem.</li>
+							</ul>
+							We also need three other things :
+							<ul>
+								<li>A state representation. Think of it as taking a picture of the game at a certain time : this picture depicts a state.</li>
+								<li>A way to simulate a genome from a given state. This is like asking : "from that situation, what would happen if I did these actions?"</li>
+								<li>A way to score a given state. This is like asking : "Is this situation good or bad for my AI ?"</li>
+							</ul>
+							With this we can represent a series of actions, test its outcome in the game from a given state and score the result. Do you see where this is going yet ?</p>
+							
+							<h2>Concept</h2>
+							<p>A genetic algorithm works by mimicking natural evolution. The theory is simple :
+							<ol>
+								<li>Create a starting population of genomes. They can be either random or made from a basic strategy.</li>
+								<li>Somehow evolve those genomes by mutating or crossing them (more on that below)</li>
+								<li>Score the genomes</li>
+								<li>Create a new population from the existing one. There are several ways to do this : remove the weak, breed the strong, mutate randomly, etc.</li>
+								<li>Repeat 2-3-4 until a solution is found or time runs out.</li>
+							</ol>
+							</p>
+							<h2>Faster, faster !</h2>
+							<p>This might seem like a wasteful approach. It actually is and it's a problem : we don't have time to waste. In codingame the AI has 75ms to output its action. In this project it's even lower. So we need to nudge the algorithm towards a sensible solution. This is done when creating the starting population : the starting genomes are made from the heuristics AI. This ensures the algorithm will start from a decent solution and try to upgrade it.<br/>
+							Doing this removes some of the randomness. That means the algorithm might miss the optimal solution. But on this problem, I'll take a good solution everytime over the best optimal solution sometimes.
+							</p>
+							<p>Of course, this wouldn't be enough if the code wasn't heavily optimized. I spent a good month optimizing the physics engine so it could run hundreds of thousands of turn simulation per second. Otherwise, the genetic algorithm wouldn't reach a good solution in time.</p>
+							
+							<h3>Problem representation</h3>
+							<p>I chose to have my genes as three floating point numbers : one for turn, one for acceleration, one for the shield. The genomes contain moves for both the runner and blocker pod at the same time. This allows cooperation between the pods.</p>
+							<p>The starting population is made of 3 genomes : one is the best from the previous turn (random for first turn), the other two are made by copying the heuristics AI. The evolution is quite simple : randomly mutate the first two genomes. Every ten mutations, I cross two random genomes together. The last genome is never modified ; it's the safety. If the evolution completely fails for some reason the last genome is guaranteed to have the same performance as the heuristics AI. </p>
+							<p>A problem state is simply the data for all the pods : position, speed, rotation, next checkpoint. The interesting part is the scoring function. I tested different ones but settled for the simplest :
+							<pre><code>
+score = (nb of checkpoints my runner passed - nb of checkpoints the opponent runner passed) * 100 000
+	- distance between my runner and its next checkpoint * 2
+	- distance between my hunter and the opponent runner
+							</code></pre>
+							The coefficients ensure that the AI prioritizes being faster than the opponent, then getting near the next checkpoint, then bothering the other runner.
+							</p>
+							
+							<h3 id="genetics-example">Examples</h3>
+							<p>Let's see the results. Here is the genetic AI (turquoise) taking on the heuristics AI (blue) in time attack.
+							<img src="geneticai/genetic-1.gif" alt=""/><br/>
+							Looking good ! The first obvious difference is the "jittery" trajectory. This is a side effect of the genetic evolution : by mutating the genomes over and over we introduce some "noise" in the trajectory. But as you can see this doesn't prevent the genetic AI overtaking its counterpart.</p>
+							<p>An interesting addition is the use of the shield. In time attack mode, where collisions are disabled ? This is the first exemple of <a href="https://en.wikipedia.org/wiki/Emergence">emergent behavior</a>. the heuristics AI never used the shield in time attack which means that somehow the genetic algorithm decided that was a better solution.<br/>
+							This is due to a gameplay mechanic that wasn't discussed until now. Using the shield makes a pod heavier for one in game second, but it also prevents it from accelerating for three seconds. So using the shield is the same as not accelerating for three seconds. The algorithm used that loose speed for the incoming turn.<br/>
+							Again : this behavior was not implemented anywhere. The algorithm discovered it by itself as a valid strategy.</p>
+							<p><span class="image right"><img src="geneticai/genetic-2.gif" alt=""/></span>But then, zig zags happen.<br/>
+							This is another side effect of the genetic algorithm. In that track, a slower pace leads to a better trajectory and an overall better time. But the algorithm doesn't actually care about the future of the race. It only simulates a short number of turns, and so only cares about the very near future.<br/>
+							The obvious solution would be to up the number of turns the algorithm simulates. But then simulating a genome would take longer, leaving less time for evolution. That's when we should go back to empirical research and try to strike a balance between short term performance and long term strategy.</p>
+							<p>The problem with loosely aligned checkpoint is now gone. The algorithm specifically excels on big curvy trajectories, vastly outperforming the heuristics AI. This race actually was won by the genetic AI with a full lap lead, which is common on this track.
+							<img src="geneticai/genetic-3.gif" alt=""/></p>
+							<p><span class="image left"><img src="geneticai/genetic-backwards.gif" alt=""/></span>Let's look at races. The Genetic AI is team red here. The first major difference with the heuristics AI is the use of collisions. Using the physics engine the algorithm can use bounces in its trajectory, and the runner will happily use that to go faster.<br/>
+							This also marks the birth of the first "crowd favorite" moment : the backwards checkpoint. This perfectly demonstrates the algorithm's precision.</p>
+							
+							<p><span class="image right"><img src="geneticai/genetic-cooperation.gif" alt=""/></span>Did you notice the cooperation between pods ? The runner and hunter actions being contained inside the same genome pays off here. If you remember the scoring equation from above, the biggest factor is how the runners ranks in the race. This leads to the hunter positionning itself and shielding so that the runner can bounce away from a hard turn.</p>
+							<p><span class="image left"><img src="geneticai/genetic-hunter.gif" alt=""/></span>The hunter is also leagues ahead of his heuristic counterpart now, holding the opponent runner away from checkpoints for extended periods of time. It still isn't very good at positionning, but when it does find a good spot it uses it much more effecitvely. And that is where the second crowd favorite comes in : the tag team checkpoint. Notice how the hunter intentionnaly clears space for the incoming runner only to reoccupy that space when its gone ?</p>
+							
+							<p>To be fair, the genetic algoritm has a huge advantage in this matchup : it knows exactly what the heuristics AI will do since that is how it was implemented. This would not be as efficient against other AIs, especially those using a different strategy than mine. However even if they don't work out so perfectly, those strategies could still be effective since the algorithm can correct them every frame.</p>
+							
+							<p>The physics engine is also a big requirement : the problem is simple enough that the engine is both fast and perfectly accurate. This would not be possible on more difficult problems, for example if the game physics included realistic drag or car physics.</p>
+							
+							<h1 id="conclusion">Conclusion</h1>
+							<p>The genetic algorithm is a major improvement over a heuristics based AI for specific cases. The emergence of cooperative behavior or the use of collisions can give pods a crucial advantage during a race. It is however difficult to implement and optimize to a usable point. Plus the behavior is dependent on a lot of factors that require lengthy experimentation, and it takes longer to compute than a heuristics algorithm.</p>
+							<p>Even if the genetic AI is stronger overall, I could never have implemented it in time for the original contest. I remain convinced that carefuly chosen heuristics are a better choice for this kind of game project overall.</p>
+							
+							<h1 id="emergence">Emergence Appreciation Corner</h1>
+							<p>Let's just take a moment to appreciate emergence and why its awesome. Again, team red is the genetic AI, team blue is the heuristics AI.</p>
+							
+							<p><span class="image left"><img src="geneticai/swagstrats-pingpong.gif" alt=""/></span>Look at the pink runner's trajectory. It gets bumped eight times during this gif. If you need any more proof that this is intended : look at its orientation. While being bounced around like a pinball it's already turning, preparing for the next checkpoint.<br/>
+							Also pay attention to the orange blocker. It bumps the pink runner in the correct trajectory, effectively setting up the whole play. Once again, this is due to cooperation between the pods.</p>
+							<p><span class="image right"><img src="geneticai/swagstrats-tagteam.gif" alt=""/></span>And wer're only just getting started on cooperation. This time the runner is in orange, almost a full lap ahead at this point of the race. Look at it overtaking the opponent runner in style. First it bounces off the turquoise runner, bumping it in a bad trajectory. It then bounces off the opponent hunter, landing in the perfect spot to once again bother the other runner before going on its merry way.</p>
+							<p>Again, notice the genetic hunter's precision (in pink here). It pushes the opponent hunter in a spot usefull to its ally pod, then chain bumps the oponnent runner into missing its next checkpoint.</p>
+							
+							<p>Bounces. Gotta love them.<p/>
+						</div>
+					</div>
+
+					<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<section>
+								<h2>Contact</h2>
+								<ul class="icons">
+									<li><a href="mailto:milan.irigoyen@gmail.com" class="icon style2 fa-envelope-o"><span class="label">Email</span></a></li>
+									<li><a href="https://www.linkedin.com/in/milan-irigoyen" class="icon style2 fa-linkedin"><span class="label">LinkedIn</span></a></li>
+									<li><a href="https://git.edrevan.com/public" class="icon style2 fa-gitlab"><span class="label">GitLab</span></a></li>
+									<li><a href="https://github.com/m-irigoyen" class="icon style2 fa-github"><span class="label">GitHub</span></a></li>
+								</ul>
+							</section>
+							<ul class="copyright">
+								<li>All rights reserved</li>
+								<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+								<li>Logo: <a href="https://game-icons.net/">Game-Icons</a></li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/browser.min.js"></script>
+			<script src="../assets/js/breakpoints.min.js"></script>
+			<script src="../assets/js/util.js"></script>
+			<script src="../assets/js/main.js"></script>
+
+	</body>
+</html>

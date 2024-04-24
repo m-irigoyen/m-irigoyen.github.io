@@ -1,0 +1,116 @@
+<!DOCTYPE HTML>
+<!--
+	Phantom by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Milan Irigoyen</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="inner">
+
+							<!-- Logo -->
+								<a href="../index.html" class="logo">
+									<span class="symbol"><img src="../images/logo.svg" alt="" /></span><span class="title">MILAN IRIGOYEN</span>
+								</a>
+
+							<!-- Nav -->
+								<nav>
+									<ul>
+										<li><a href="#menu">Menu</a></li>
+									</ul>
+								</nav>
+
+						</div>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<h2>Menu</h2>
+						<ul>
+							<li><a href="#summary">Summary</a></li>
+							<li><a href="#context">Context</a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<h1>Pin Table</h1>
+							<span class="image main"><img src="pintable/title.png" alt="" /></span>
+							
+							<h2 id="summary">Summary</h3>
+							<div class="table-wrapper">
+								<table>
+									<tbody>
+										<tr>
+											<td>Date</td>
+											<td>2018 - August (two weeks)</td>
+										</tr>
+										<tr>
+											<td>Tech</td>
+											<td>Godot Engine</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<p>Pin table effect recreated in Godot Engine with vertex and fragment shader. Includes a mesh generator to create tables of custom sizes.
+							<ul>
+								<li>Customize size, number of pins, and pin shapes directly inside the editor</li>
+								<li>Shader based effect keeps the CPU free</li>
+								<li>This implementation is visual only (no collisions), but the concept can be easily applied to physics</li>
+							</ul></p>
+							
+							<h2 id="download">Download</h2>
+							<p>The code can be found <a href="https://git.edrevan.com/edrevan/pintable">on my GitLab</a>.</p>
+							
+							<h2 id="context">Context</h2>
+							<p><span class="image right"><img src="pintable/ocean.gif" alt="" /></span>This project was inspired by the MIT's <a href="https://www.youtube.com/watch?v=lCARHatJQJA">TRANSFORM technology</a>. The concept in itself is quite simple : have a matrix of pins move up and down in unison to create shapes.</p>
+							<p>The geometry used in the project is created via scripting. Each pin type (cube / hexagon) is hardcoded : vertices and UVs are specified in code, the normals are generated internally by Godot. The mesh generation is a bit slow (a few seconds for a 500*500 table), so I added the option to export the generated mesh as a Godot resource.</p>
+							<p>The shaders are pretty straightforward. The vertex shader displaces the top vertices of each individual pin. The displacement can be computed mathematically or read from a texture. The fragment shader just updates the color of the pin. The only notable trick to this is that the uvs of all vertices of a pin are collapsed in a single point. This gives a nice mosaic effect to the colors.</p>
+							<p><span class="image left"><img src="pintable/video.gif" alt="" /></span>From that point it becomes trivial to display anything on a pin table. Even videos, as you can see from this reference to my earlier <a href="geneticai.html">Genetic AI project</a>.</p>
+						</div>
+					</div>
+
+					<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<section>
+								<h2>Contact</h2>
+								<ul class="icons">
+									<li><a href="mailto:milan.irigoyen@gmail.com" class="icon style2 fa-envelope-o"><span class="label">Email</span></a></li>
+									<li><a href="https://www.linkedin.com/in/milan-irigoyen" class="icon style2 fa-linkedin"><span class="label">LinkedIn</span></a></li>
+									<li><a href="https://git.edrevan.com/public" class="icon style2 fa-gitlab"><span class="label">GitLab</span></a></li>
+									<li><a href="https://github.com/m-irigoyen" class="icon style2 fa-github"><span class="label">GitHub</span></a></li>
+								</ul>
+							</section>
+							<ul class="copyright">
+								<li>All rights reserved</li>
+								<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+								<li>Logo: <a href="https://game-icons.net/">Game-Icons</a></li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/browser.min.js"></script>
+			<script src="../assets/js/breakpoints.min.js"></script>
+			<script src="../assets/js/util.js"></script>
+			<script src="../assets/js/main.js"></script>
+
+	</body>
+</html>
