@@ -42,7 +42,7 @@
 							<li><a href="#summary">Summary</a></li>
 							<li><a href="#tdd">Test Driven Development</a></li>
 							<li><a href="#gitflow">Git Flow</a></li>
-							<li><a href="#leading">Acting as substitute tech lead</a></li>
+							<li><a href="#leading">Acting tech lead</a></li>
 							<li><a href="#core">Core feature</a></li>
 							<li><a href="#conclusion">Conclusion</a></li>
 						</ul>
@@ -51,7 +51,7 @@
 				<!-- Main -->
 					<div id="main">
 						<div class="inner">
-							<h1>Unnanounced project</h1>
+							<h1>Lovelink</h1>
 							
 							<h2 id="summary">Summary</h2>
 							<div class="table-wrapper">
@@ -63,16 +63,16 @@
 										</tr>
 										<tr>
 											<td>Date</td>
-											<td>2019 - present</td>
+											<td>2019 - 2020</td>
 										</tr>
 										<tr>
 											<td>Tech</td>
-											<td>Custom engine : C# / Java / Unity</td>
+											<td>C# / Unity (client), Java (backend)</td>
 										</tr>
 									</tbody>
 								</table>
 							</div>
-							<p>Unnanounced project of a server mobile authoritative game. The main gameplay logic is done on a Java backend, while the client is a Unity project.
+							<p>Lovelink is a narrative game that tells story by mimicking the user interface of a dating app. It's a server authoritative mobile game. The main gameplay logic is done on a Java backend, while the client is a Unity project.
 							<ul>
 								<li>Researching and setting-up a teamwide <a href="https://en.wikipedia.org/wiki/Test-driven_development">Test Driven Development</a> workflow in Unity, based around the  <a href="https://en.wikipedia.org/wiki/Model-view-controller">model view controller</a> and <a href="https://en.wikipedia.org/wiki/Dependency_injection">dependency injection</a> design patterns</li>
 								<li>Setting-up a teamwide <a href="https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow">Git Flow workflow</a> </li>
@@ -102,19 +102,45 @@
 							
 							<h2 id="leading">Acting as substitute Tech Lead</h2>
 							<p>The main difficulty the development team faced in pre-production and in the early stages of production was twofold. </p>
-							<p>First, the team was made up of a majority of juniors to intermediate level developrs, with the only senior being the lead developer. For this project the lead decided to switch to a manager approach, leaving the vast majority of the actual coding to the rest of the team. Plus the team had next to no experience with backend development, which left many questions unanswered at the end of pre-production. And finally, the role of tech lead had yet to be filled.</br>
+							<p>First, the team was made up of a majority of juniors to intermediate level developers, with the only senior being the lead developer. For this project the lead decided to switch to a manager approach, leaving the vast majority of the actual coding to the rest of the team. Plus the team had next to no experience with backend development, which left many questions unanswered at the end of pre-production. And finally, the role of tech lead had yet to be filled.</br>
 							When we started production, I was appointed as a substitute tech lead while several candidates were being considered for the role. My job was to lead the other developpers in day-to-day development, coordinating the implementation of the different features. I was also the first point of contact for the lead developper, to whom I would present an analysis of any problems we may have and bring potential solutions.</br>
 							I ended up prototyping the core layer of the game which was used for several months. After an actual tech lead was brought to the team I retained some of my coordination duties, which I still have to this day.</br>
 							<p>I believe that at this point I lacked the technical expertise needed for such a task. But this was an invaluable experience for me, which pointed me clearly the areas where I needed to improve. And since when the tech lead arrived he didn't throw everything I did in the garbage can, I would say that all things considered I did a decent job !
 							<ul>
-								<li>Lead a team of 5 junior and intermediate developers for several months in the early stages of production</li>
+								<li>Lead a team of five junior and intermediate developers for several months in the early stages of production</li>
 							</ul></p>
 							
 							<h2 id="core">Implementing the core gameplay feature</h2>
-							<p>As the game isn't out yet I can't go into much details here. Essentially during later stages of production I was tasked with implementing the core feature of the game, and coordinating other features that have an impact on it.</p>
+							<p>The main feature of the game is the stories you live through conversations with the NPCs. First you have to match with them, following the standard UI flow of most dating apps. Then you enter a conversation view similar to most messaging apps. The story then unfolds in standard visual novel fashion : a set of dialogue is played, and you get a choice between multiple answers.</p>
+							
+								<h3>Client side</h3>
+							<p>
+							The whole point of the game was to simulate the dating app experience, so we needed it to look and feel like a real dating app. The two main obstacles were the look and feel, and data streaming / optimizing.
+							</p>
+							<p>
+							The visuals were done by iterating with our UX designer (mockups), tech-artist (integrating art asset) and myself (animating all the components to math the mockups). This was a process during the entirety of production, and we tried different looks before landing on the final one.</br>
+							The code made heavy use of tweening for the animations.
+							</p>
+							<p>
+							The main challenge was the optimization part. The entire conversation data was streamed from a backend and we needed to optimize our network bandwitdh as much as possible. We used a Just-In-Time system where the server would stream blocks of messages to the client, trying to stay roughly five to ten messages ahead at all times. The client would then pace itself with animations, mimicking the rythm of a real text conversation.
+							</p>
+							<p>
+							The client could store that text data locally, but we still had to display it should the user scroll back up. For performance, we used a pool of text bubbles. As you scroll up/down, every object beyond a certain distance after your screen is silently repurposed and reused for another message.
+							</p>
+
+							<h3>Backend</h3>
+							<p>
+								The backend was a challenge, as Lovelink was the first game using the new backend version of Ludia. This meant we were the crash-test project, and had to work with backend team as they delivered features and fixed bugs.</br>
+								Most of the game logic was written in java microservices. This allowed us to deploy bugfixes, data changes and new features without requiring a client update on the different app stores.
+							</p>
+							<p>
+								It also allowed us to fully unit test our game logic, as it was completely decorrelated from the real-time constraints of the Unity engine. Of course this did not mean the game was free of bugs, but it allowed us to catch most of them early and fix them before they became too big of an issue. The team was new to test-driven development workflows, so it took time to bring them up to speed, but it was worth it in the end.</br>
+								I believe this is one of the core reasons that allowed us to ship a full content-driven game with a small team of only 6 developers and 2 QAs.
+							</p>
 							
 							<h2 id="conclusion">Conclusion</h2>
-							<p>As the project has yet to launch, I will hold my final conclusion until then. Nevertheless, undertaking this project is an amazing experience to be part of and I'm very excited to see it launch !</p>
+							<p>Lovelink was a fun project, exciting to work on. While the premise wasn't the most interesting, it still ended up being technically challenging. When I look back at the odds and the make up of the team, I can proudly say that we went above and beyond the assignment.</br>
+							While I left the company, I did hear afterwards that the game ended up being a financial success for the company, which is always good to hear.</p>
 						</div>
 					</div>
 
