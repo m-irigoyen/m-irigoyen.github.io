@@ -1,0 +1,196 @@
+<!DOCTYPE HTML>
+<!--
+	Phantom by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Milan Irigoyen</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="inner">
+
+							<!-- Logo -->
+								<a href="../index.html" class="logo">
+									<span class="symbol"><img src="../images/logo.svg" alt="" /></span><span class="title">MILAN IRIGOYEN</span>
+								</a>
+
+							<!-- Nav -->
+								<nav>
+									<ul>
+										<li><a href="#menu">Menu</a></li>
+									</ul>
+								</nav>
+
+						</div>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<h2>Menu</h2>
+						<ul>
+							<li><a href="#summary">Summary</a></li>
+							<li><a href="#tdd">Test Driven Development</a></li>
+							<li><a href="#gitflow">Git Flow</a></li>
+							<li><a href="#leading">Acting tech lead</a></li>
+							<li><a href="#core">Core feature</a></li>
+							<li><a href="#conclusion">Conclusion</a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<h1>Dead By Daylight</h1>
+							
+							<h2 id="summary">Summary</h2>
+							<div class="table-wrapper">
+								<table>
+									<tbody>
+										<tr>
+											<td>Company</td>
+											<td><a href="https://www.bhvr.com/">Behaviour Interactive</a></td>
+										</tr>
+										<tr>
+											<td>Date</td>
+											<td>2021 - 2022</td>
+										</tr>
+										<tr>
+											<td>Tech</td>
+											<td>C++ / Unreal Engine 4</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<p>Dead by daylight is a 1v4 multiplayer horror game of cat and mouse, where one player takes the role of the killer and the other four take the role of the survivors. The killer must sacrifice the survivors to a mysterious Entity, while the survivors desperately try to escape.
+							</p>
+							<ul>
+								<li>Owner of the in-game character customization</li>
+								<li>Improved frame rate by 30% on average in the customization UI.</li>
+								<li>Refactored existing architecture in a maintainable long-term solution.</li>
+								<li>Introduced data validation and error handling across the game client, preventing customization hacks by players.</li>
+								<li>Wrote server-authoritative validation logic on the backend.</li>
+								<li>Sanitized production data by fixing player saves at runtime.</li>
+							</ul></p>
+
+							<h2 id="getting-up-to-speed">Getting up to speed</h2>
+							<p>Behaviour was the biggest company I'd ever been part on at this point, and I had never worked on AAA projects before. Dead By Daylight was already live for five years at this point, and by sheer size of development team this also made it the biggest project I'd ever been on, by far.</p>
+
+							<p>I joined the systems team, which was best described at "not gameplay, not UI, not backend, but everything else". I was quickly put on the subject of character customization, which would end up being my niche for my stay on the project.</p>
+
+							<h2 id="primer">Character customization, a primer</h2>
+							<p>Character customization is overall a tricky subject. It's not directly tied to gameplay (and when it is, it's often minor), yet it is a vital part of the economics of a live service game.</br>
+							Technically speaking, it's one of the most central systems in the game. It has to work in-game (where performance is critical), in the menus (where UI and UX is critical), it ties in to the in-game store, and it has to work seamlessly between all of those. If those sound vastly different it's because they actually are, and that creates a lot of interesting technical problems to solve for people like me !</p>
+							
+							<h3>Understanding the problem</h3>
+							<p>When I arried, the entire system was already in place. As is often the game in the games industry, the whole thing was put together rather quickly by a small team under time pressure. It did work, yes. But it was also systematically unstable, and adding any kind of new feature to it was a technical nightmare.</p>
+							<p>The whole system was a perfect example of the "put some duct tape on and deal with it later" development mentality. Any building with bad foundations is bound to collapse eventually, sooner rather than later, and it's a testament to the devs that it (mostly) stood tall until I got here.</p>
+							<p>To be more technical, in Dead By Daylight customization is split in 3 parts : (survivor[head/boddy/legs], killer[head,torso,weapon]). At the time of my joining the project, you could mix every piece of customization together, no matter how bad it looked.</br>
+								What design wanted was to lock certain combinations together. Legendary Sets were designed as premium items that could not be mixed. The system was definitely not built to handle that.</p>
+							<p>The main problems were rather simple to identify.
+							<ul>
+								<li>All customization data was statically available at any point in the program, without any layer of security. Any function anywhere in the entire codebase could change the current customization.</li>
+								<li>There was no data validation of any sort, anywhere. Any wrong customization (be it a bug or exploit/hack) would be carried over from store to lobby to game, and vice versa.</li>
+								<li>The system was built with the assumption that things would work in a very specific way, without safeguards for the eventuality of change. And design had ideas to change it.</li>
+							</ul>
+							</p>
+							
+							<p>
+								This problem was magnified by the lack of safety and data validation between different points of the game. We had three main entry points (store, lobby, game), and any vulnerability from any of those could be carried over anywhere else.
+							</p>
+							<p>You might think this is a minor problem, and at first glance it is. But Dead By Daylight's business model is built on regular content updates licensing some household names of the horror genre. Licensing comes with pretty clear restrictions on what we can and cannot do with the source material. That means we have to convince those big licenses to lend us their characters, and to trust us we won't be making them look bad.</br>
+							Like, you know... 
+							<a href="https://www.youtube.com/watch?v=FOtBzQAtVrE">A</a> 
+							<a href="https://www.youtube.com/watch?v=yooasVLNj1I">documented</a> 
+							<a href="https://www.reddit.com/r/deadbydaylight/comments/o6a03i/easy_method_quick_guide_to_glitch_cosmetic_with/">cosmetics</a> 
+							<a href="https://www.youtube.com/watch?v=xqMopiBKpnQ">glitch</a> 
+							<a href="https://www.youtube.com/watch?v=tRYmLlj67Ek">that</a> 
+							<a href="https://www.reddit.com/r/deadbydaylight/comments/v2jt5g/why_cant_we_use_parts_of_outfits_if_it_is/">allows</a> 
+							<a href="https://www.reddit.com/r/deadbydaylight/comments/nd6s1l/is_glitching_outfit_bannable/">mixing</a> 
+							<a href="https://www.youtube.com/watch?v=KDB7TwSh1Y8">licensed</a> 
+							<a href="https://www.youtube.com/watch?v=UUjg9WFVuDM">outfits</a>.
+							</br>No big deal, right ?</p>
+							
+							
+							<h2>The first step is the hardest</h2>
+							<h3>A production problem</h3>
+							<p>The problem was known by everyone. The problem was, production felt the system was too big and widespread in the codebase to do anything about it. Rewriting it from the ground up was a months-long endeavor, time we did not have. And we had to support new content releases every three months. This was assumed to be an unavoidable thorn, and we simply did our best to fix it everytime it popped up. Anything else is too costly or risky, and therefore not worth considering.</br>
+							This is a common situation in software development.</p>
+							<p>As I became the expert on this topic, it fell to me to do something about it. Lukcy for me, I had my background in software engineering to work with. And the software industry has known methodology to deal with that kind of issues !</br>
+							</p>
+							<p>As is often the case, it all boils down to time and personel. "If we had more time, or more people, we could fix it".</br>
+							Getting more people was out of my hands, but finding time ? Not that, I could do.</p>
+
+							<h3>Information warfare</h3>
+							<p>The first thing I did was to introduce proper tracking of the bugs in the system. The system was simply too widespread for anyone other than subject-matter experts to properly understand which bug was linked to which part. Therefore it fell to me to handle the bug triage, and I started keeping notes of what caused the bugs, and how long it took to fix it. This is an essential step of the process, as it gives us hard data on how big the problem actually is.</br>
+							Without this data, management cannot make informed decisions about the problems teams face.</p>
+							<p>The second step was adding smoke detectors. The sooner we detect the problem, the easier it is to fix it. I started systematically adding logs and checks in key bottlenecks around the project. Transitions between store/lobby/game, on character change, etc. By teaching QA how to read those logs, we improved the quality of bug reporting on the customization, leading to better bug triage, faster bug resolution, less duplicate tickets, etc.</br>
+							This was actually a bigger endeavor than you would think. The systems weren't necessarily built with data validation in mind, so I add to formally define what was "correct customization" or not, and then implement those checks myself.</p>
+
+							<h3>Limit the spread</h3>
+							<p>While those information changes did little to actually fix the problem, they crucially bought us time. Any time not spent tracking the problem could now be spent fixing it.</p>
+							<p>The next step was to implement basic security. Now that we could detect the bug once it had happened, we could actually start fixing it in retrospect.</br>Note that I'm not talking about fixing the bug itself, but preventing its spread. To use a visual analogy : consider the game as an appartment building. Floors are the different sections of the game (game, lobby, store, main menu), and appartments are the features and various UI menus inside those sections.</br>In that scenario, the bug is a fire. At this stage we're not talking about dousing the fire, but simply preventing its spread by adding fireproof doors.</p>
+							<p>This was done by adding checks in all state transitions in the game. You could still break the customization locally in the store or lobbies, but everytime you would change screens it would reset to a default outfit.</p>
+
+							<h2 id="do_something">Now to do something about it</h2>
+
+							<h3>Start small</h3>
+							<p>Now that basic security was in place, we could start actually fixing the problem. The key is to start small, and to gradually build up. I implemented an interface above the existing logic, and started enforcing that all customization logic should go through that new interface.</br>
+							At first the interface did nothing but be a middleman and forward data. But the key part was that now, we went from multiple entry points to a single centralized one. And this one we could safely add logic to.</p>
+							<p>For the sake of simplicity and time, we strategically abandonned the store for a while. We knew our flow was Store to Lobby to Game anyway, so we figured we had to fix the lobbies first. We started hunting the outfit exploits specifically in the lobbies. Fixing those took a long while, as this was finally the dirty work of extracting logic buried under years of updates and hastily added features, and making it self-sufficient and optimized.</p>
+
+							<h3>Get bigger</h3>
+							<p>We ended up finding and fixing most of the lobby exploits. But we knew this was only a short term victory : any change of UI flow could potentially open new vulnerabilities. The only viable long-term solution was to implement proper data validation.</p>
+							<p>This was the critical point. Everything done before could be passed as debugging, which production was fine with. But this was an actual refactor, and production was less than overjoyed by it.</br>
+							This is where the information gathering phase came in clutch. I had hard data (based on my own time logs) that proved how much time I had spent debugging in the previous year. We could demonstrate that we already were loosing more developer time to bugs than the refactor would take.</p>
+							<p>The refactor took around a month and a half, and after a couple weeks of debugging after it was integrated the community reported most of the exploits were fixed.</br>
+							Importantly, internally we saw a significant decrease in bugs around customization, and in the time it took to fix them.</p>
+							
+							
+							<h2 id="conclusion">Conclusion</h2>
+							<p>Working on Dead By Daylight was a great learning experience for me personnally. I got to learn about an industry-standard AAA workflow and tools, working on a renowned license where my work directly impacted tens of thousands of players.</br>
+							While the quality of the codebase and the time pressure made it difficult at times, I am convinced the lessons I got from it make me a better developer overall.</p>
+						</div>
+					</div>
+
+					<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<section>
+								<h2>Contact</h2>
+								<ul class="icons">
+									<li><a href="mailto:milan.irigoyen@gmail.com" class="icon style2 fa-envelope-o"><span class="label">Email</span></a></li>
+									<li><a href="https://www.linkedin.com/in/milan-irigoyen" class="icon style2 fa-linkedin"><span class="label">LinkedIn</span></a></li>
+									<li><a href="https://git.edrevan.com/public" class="icon style2 fa-gitlab"><span class="label">GitLab</span></a></li>
+									<li><a href="https://github.com/m-irigoyen" class="icon style2 fa-github"><span class="label">GitHub</span></a></li>
+								</ul>
+							</section>
+							<ul class="copyright">
+								<li>All rights reserved</li>
+								<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+								<li>Logo: <a href="https://game-icons.net/">Game-Icons</a></li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/browser.min.js"></script>
+			<script src="../assets/js/breakpoints.min.js"></script>
+			<script src="../assets/js/util.js"></script>
+			<script src="../assets/js/main.js"></script>
+
+	</body>
+</html>
