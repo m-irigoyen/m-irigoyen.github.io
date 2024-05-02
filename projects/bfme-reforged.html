@@ -1,0 +1,371 @@
+<!DOCTYPE HTML>
+<!--
+	Phantom by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Milan Irigoyen</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="inner">
+
+							<!-- Logo -->
+								<a href="../index.html" class="logo">
+									<span class="symbol"><img src="../images/logo.svg" alt="" /></span><span class="title">MILAN IRIGOYEN</span>
+								</a>
+
+							<!-- Nav -->
+								<nav>
+									<ul>
+										<li><a href="#menu">Menu</a></li>
+									</ul>
+								</nav>
+
+						</div>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<h2>Menu</h2>
+						<ul>
+							<li><a href="#summary">Summary</a></li>
+							<li><a href="#download">Download</a></li>
+							<li><a href="#breakdown">Project Breakdown</a></li>
+							<li><a href="#heuristics">Heuristics AI</a></li>
+							<li><a href="#heuristics-example">Heuristics AI Examples</a></li>
+							<li><a href="#genetics">Genetic AI</a></li>
+							<li><a href="#genetics-example">Genetic AI Examples</a></li>
+							<li><a href="#conclusion">Conclusion</a></li>
+							<li><a href="#emergence">Emergence Appreciation Corner</a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<h1>Genetic AI</h1>
+							<span class="image main"><img src="geneticai/title.png" alt="" /></span>
+							
+							<h1 id="summary">Summary</h1>
+							<div class="table-wrapper">
+								<table>
+									<tbody>
+										<tr>
+											<td>Date</td>
+											<td>2017 - 2018 (eight months)</td>
+										</tr>
+										<tr>
+											<td>Tech</td>
+											<td>Custom engine : C++ / SFML / GLSL</td>
+										</tr>
+										<tr>
+											<td>Collaborators</td>
+											<td><a href="https://www.artstation.com/chamerlat">Luc Chamerlat</a> (Artist)</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<p>Compete against different bots in this tech demo of a simple racing game.
+							<ul>
+								<li>Artificial intelligence bots using <a href="https://en.wikipedia.org/wiki/Boids">steering behaviors</a> and <a href="https://en.wikipedia.org/wiki/Genetic_algorithm">genetic algorihms</a></li>
+								<li>Fully functional custom UI system</li>
+								<li>Features VFX breakdown of particle systems and shaders</li>
+							</ul></p>
+							
+							<h1 id="download">Download</h1>
+							The code can be found <a href="https://git.edrevan.com/edrevan/podracer">on my GitLab</a>.
+							<div class="table-wrapper">
+								<table>
+									<tbody>
+										<tr>
+											<td>Windows</td>
+											<td><a href="geneticai/GeneticAI-winx32.zip">32 bit</a></td>
+											<td><a href="geneticai/GeneticAI-winx64.zip">64 bit</a></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							
+							<p>
+							<video controls muted> <!--autoplay="autoplay" loop="loop"-->
+								<source src="geneticai/genetic-v-steering2.mp4" type="video/mp4" />
+								Sorry, your browser does not support the video tag !
+							</video>
+							</p>
+							
+							<h1 id="breakdown">Project breakdown</h1>
+							<h2>Context</h2>
+							<p><span class="image left"><img src="geneticai/codingame.png" alt="" /></span>During 2020 I was still working on Unity mobile games, and was looking for an introduction project to Unreal Engine and bigger games. I came across the <a href="https://bfmereforged.org/">Reforged project</a> by chance, and decided to apply. At the time they were were searching for a dedicated pathfinding solution, and were not happy with Unreal's out-of-the-box Reciproval Velocity Avoidance system. I joined the project to fix that.</p>
+							<p>
+								The Battle For Middle Earth games stood out from the regular RTS genre by pushing the squad concepts from Company Of Heroes. Instead of a squad of 5 or 6 units, here most of the squads reached at least 10 units, some pushing 20 and more.</br>
+								Squads were commanded as a single unit : clicking any unit selected the whole squad, and you could order them to move around. The whole squad moved in formation to the target destination, and when reaching it could orient itself in a specific direction.
+							</p> 
+							<p>
+								The game featured a simulated kind of physics between units : heavy units and magical powers can push back and knock up units, breaking their formation. Cavalry charges can do the same, but only when they reach their top speed.
+								</br>Players usually command armies of hundreds of units, and the original games supported 8 players in multiplayer. That's thousand of units, pathfinding, fighting and flying all over the place, in real time.
+							</p>
+							
+							<h2>The pathfinding problem</h2>
+							<p>
+								This is of course a networking nightmare (or dream scenario, depending on your attitude towards challenge !), but also creates unique challenges for pathfinding. This gameplay effectively mixes the two main categories of pathfinding : global and local pathfinding.
+							</p>
+							<p>
+								For example, consider yourself going to work in the morning. You know the way : get out of the house, walk to the bus station (using the shortcut near the grocery store), ride the bus for X stops, walk to the office. This is global pathfinding : your travel plan.</br>
+								Yet when walking down the street, do you consider every single meter of the journey as part of the plan ? Right down to that trash can or that crack in the sidewalk you sidestep every morning, the seconds spent waiting for the light to turn green ? Of course not. This is local pathfinding : the adjustments you make on the fly.
+							</p>
+							<p>
+								In games we tend to do only one or the other. Mixing those two techniques is a complicated task, one that we can usually avoid. No need for complicated pathfinding ? Just do local and live with it.</br>
+								Have to navigate a complex map ? Use global pathfinding, and just put every single detail of the map in the plan. Imagine google maps going down to the centimeter level on your daily commute, and you get the idea. That's how most pathfinding is done in games : agents actually follow a plan that includes every tiny obstacle on their path. Lucky for us, computers are good at following incredibly detailed sequences !
+							</p>
+							<p>
+								But in this case, we sadly can't do this for a simple reason : squad formations. What would happen if you and twenty of your friends decided to ask Google Maps for a travel plan ? You get twenty individual plans. That's google doing the same computation twenty times, and maybe you won't get the same result ! Plus any problem that happens along the way (X wants to stop for a coffee break, Y misses the greenlight and has to wait...) has all twenty of you drifting apart more and more.</br>
+								This is unacceptable for the game : squads have to stick together even after they get split around like bowling balls after a cavalry charge.
+							</p>
+
+							<h2>The solution</h2>
+							<p>
+								In practice, that group trip will probably end up being one or two persons with the map, and the rest will be followers behind them. This was exactly my proposed solution. You don't need every single unit doing global pathfinding, taking a lot of processing power. Plus this is a game about armies fighting, most likely the path will change along the way because you round the corner and find that enemy ambush waiting for you !</br>
+								Instead, we designate one unit per squad as the leader that does global pathfinding (the one with the map). Every other unit is a follower, caring only about their relative position to the leader.
+							</p>
+							<p>
+								The good thing about this plan is that leverages the strengths of both methods. Global pathfinding is hard on the processing power, but good with long distances and precision. Local pathfinding is fast (useful with the number of units we want) and resilient to change and obstacles.
+							</p>
+
+							<h1>Squads and formations</h1>
+							<h2>Getting the feel right</h2>
+							<h3>Changing formations</h3>
+							<p>
+								The biggest unknown was the local pathfinding, so we started with that. The implementation is based on the <a href="https://en.wikipedia.org/wiki/Boids">the boids technique</a>, and borrows ideas from Entity Component System theory to make it fast enough for hundreds of units.</br>
+								Each unit in the squad is assigned an id, and each formation is a function that takes in input that ID and outputs the relative position to the leader.</br>
+								<video width="800" height="600" controls muted loop="loop"> <!---->
+									<source src="bfmereforged/basic - changing formations.mp4" type="video/mp4" />
+									Sorry, your browser does not support the video tag !
+								</video>
+							</p>
+							<h3>Death & reinforcements</h3>
+							<p>
+								Units can of course die and be replaced, so formations must account for that. If a unit dies on the front line another should come to plug the hole, and new units should take their place in the rear.</br>
+								<video width="800" height="600" controls muted loop="loop"> <!---->
+									<source src="bfmereforged/basic - adaptative formation.mp4" type="video/mp4" />
+									Sorry, your browser does not support the video tag !
+								</video>
+							</p>
+
+							<h3>Frontline reversal</h3>
+							<p>
+								This is an RTS game, and RTS players sure like clicking all over the place ! This makes for very sharp changes in direction, and the game needs to support that graciously. The first quick win to combat that was to allow the whole squad to do an about-face without mirroring their positions.</br>
+								<video width="800" height="600" controls muted loop="loop"> <!---->
+									<source src="bfmereforged/basic - frontline reversal.mp4" type="video/mp4" />
+									Sorry, your browser does not support the video tag !
+								</video>
+							</p>
+
+							<h3>Formation correction</h3>
+							<p>
+								This is where the first major problem appeared. Units always moved forward at full speed, causing stragglers to never catch up. It made the formation look disjointed and messy, far from the neat look the original games had.</br>
+								<video width="800" height="600" controls muted loop="loop"> <!---->
+									<source src="bfmereforged/basic - uncorrected movement.mp4" type="video/mp4" />
+									Sorry, your browser does not support the video tag !
+								</video></br>
+								This is a foreshadowing for greater problems to come. But in the meanwhile, this was fixed by adding a "corrected movement" mechanism.</br>
+								Units will always try to reach their relative position in the formation. If they lag too far behind that position, they get a temporary speed boost that allows them to catch up. We made the speed boost interpolate linearly : the farther you are, the more boost you get. This made for smooth movements, mimicking the way actual humans move in formation.</br>
+								<video width="800" height="600" controls muted loop="loop"> <!---->
+									<source src="bfmereforged/basic - corrected movement.mp4" type="video/mp4" />
+									Sorry, your browser does not support the video tag !
+								</video>
+							</p>
+
+							<p>
+								The more obstacles there are, the more apparent the benefits of formation correction. Here's without correction</br>
+								<img src="bfmereforged/forest_easy_doubleline.gif" alt="" /></br>
+								Only after a couple trees the formation shape is lost, almost unrecognizable. And it only gets worse.
+								</br>Compare it for the same test, with correction. Notice how much more cohesive the squad looks, even with trees in the middle of it. You can still recognize the shape.</br>
+								<img src="bfmereforged/forest_easy_doubleline_correction.gif" alt="" />
+							</p>							
+
+							<h2>Unit avoidance</h2>
+							<p>
+								Now that this works, it's time to add more squads.</br>
+								Unit avoidance took me a long time to get right. The basic idea is to add an avoidance force for each unit in close proximity. It then becomes a trial and error dance of tweaking the values a little, observing the results, and getting the parameters just right.</br>
+								<video width="800" height="600" controls muted loop="loop"> <!---->
+									<source src="bfmereforged/basic - unit avoidance 1.mp4" type="video/mp4" />
+									Sorry, your browser does not support the video tag !
+								</video></br>
+								The boid system is at it's best here : note how the units tend to slide around other squad formations rather than penetrate them. This is due to the avoidance force : the combination of multiple forces makes the big unit want to avoid the whole pack rather than dive in.
+							</p>
+
+							<p>
+								This is of course impossible in head-on collisions, where both squads must walk through each other.</br>
+								<video width="800" height="600" controls muted loop="loop"> <!---->
+									<source src="bfmereforged/basic - unit avoidance 2.mp4" type="video/mp4" />
+									Sorry, your browser does not support the video tag !
+								</video></br>
+								Notice how some units get temporarily stuck, but the system soon corrects itself and the formations start to reform.
+							</p>
+
+							<p>
+								The systems is very resilient, even in crowded areas.</br>
+								<video width="800" height="600" controls muted loop="loop"> <!---->
+									<source src="bfmereforged/basic - unit avoidance 4.mp4" type="video/mp4" />
+									Sorry, your browser does not support the video tag !
+								</video></br>
+							</p>
+
+							<h2>Global Pathfinding</h2>
+							<p>
+								The global pathfinding part was in theory simple, but got more and more complexe as we began to fine tune the system. The initial plan was to create a nav mesh (as most game engines do) and use the <a href="https://en.wikipedia.org/wiki/A*_search_algorithm">A* algorithm</a> to navigate it.</br>
+								The creation of the static geometry and its triangulation is actually quite complex, and would deserve its own explanation page. For the sake of clarity I won't get into it here (but that was a fun side project !).</br>
+								The two main problems I encountered was corner avoidance, and what I called "splitting geometry".</p>
+							</p>
+
+							<h3>Geometry repulsion force</h3>
+							<p>
+								A* is a graph-based algorithm. It only cares whether a point is reachable or not, and by default does not consider agent width. In our case its more complex than that, since the formation could be naturally quite wide (dozen units in a line), but still fit through narrow passages by changing to a column formation.</br>
+								This can be fixed by simply adding another force to the boid system : the geometry force. For each unit, detect the closest static geometry and add a force steering directly away from it.</br>
+								<video width="800" height="600" controls muted loop="loop"> <!---->
+									<source src="bfmereforged/basic - geometry adpatation.mp4" type="video/mp4" />
+									Sorry, your browser does not support the video tag !
+								</video></br>
+								This is good enough for most scenarios. The formation stays within acceptable margins even with tight corners.
+								<video width="800" height="600" controls muted loop="loop"> <!---->
+									<source src="bfmereforged/basic - geometry adaptation 2.mp4" type="video/mp4" />
+									Sorry, your browser does not support the video tag !
+								</video>
+							</p>
+
+							<h3>Corner avoidance</h3>
+							<p>
+								The problem is, as mentionned above A* does not support changing width. This causes a problem when cornering. If the squad is walking in a line five units wide, when rounding a corner the leader must take that into account. If the leader aims to clear the corner without any margin, then some units are driven directly into the wall. This is of course unacceptable.</br>
+								The solution is simple in theory : just add some padding to the corners. But as always when geometry and navmeshes are concerned, in practice this can be quite complex. And remember the whole thing has to be as optimized as possible, the goal is to have dozens of units doing this on large maps !
+							</p>
+							<p>
+								The algorithm I used is simple because it uses geometry. I'm sure there are way more efficient ways to do this, but the goal at this stage was to prototype the look and feel, not spend months optimizing it.</br>
+								<ul>
+									<li>Identify all the triangle edges the path will go through (light blue) : this is the standard output of the A* algorithm when you run it on a group of connected triangles.</li>
+									<li>Add some padding around the geometry (green).</li>
+									<li>Draw a path from start to finish, passing through the middle of all the portals.</li>
+								</ul>
+								</br>
+									<img src="bfmereforged/BFME - pathfinding - middlepath.gif" alt="" /></br>
+									This gives us the safest path : the one farthest away from the walls.
+							</p>
+							<p>This is a good start, but is not good enough. Now we need to smooth out all those weird turns. The smoothing algorithm is as follows.
+							<ul>
+								<li>Starting from the last point, raycast to each point in the path. If no hits are found, finish.</li>
+								<li>When a hit is found, find the intersection of the geometry lines that the hit found. This is the new path point.</li>
+								<li>Cut all the previous points and replace them by this one.</li>
+								<li>Restart the algorithm from the new point.</li>
+							</ul>
+							<img src="bfmereforged/BFME - pathfinding - smoothing2.gif" alt="" /></br>
+							Repeat until the entire path is smoothed.</br>
+							<img src="bfmereforged/BFME - pathfinding - smoothing3.gif" alt="" />
+						</p>
+
+						<p>
+							This yields reasonable paths squads can follow. The padding around geometry must be adjusted per formation for best results, and is a matter of trial and error depending on unit stats (speed, size, etc).</br>
+							Here is an example with small padding. Observe how some units get caught on the corners and have to catch up.
+							<video width="800" height="600" controls muted loop="loop"> <!---->
+								<source src="bfmereforged/pathfinding - narrow.mp4" type="video/mp4" />
+								Sorry, your browser does not support the video tag !
+							</video></br>
+							Same example with higher padding. The squad navigates corners better this time.
+							<video width="800" height="600" controls muted loop="loop"> <!---->
+								<source src="bfmereforged/pathfinding - wide.mp4" type="video/mp4" />
+								Sorry, your browser does not support the video tag !
+							</video>
+						</p>
+
+						<h3>Splitting geometry</h3>
+						<p>
+							This is the biggest problem I had to face. When local pathfinding is faced with an obstacle, it has no notion of right or wrong. It only sees force, pushing it towards its goal. So what happens when they take the wrong path ? Without any external help, the stragglers will not know to backtrack to take the proper branch in the path.</br>
+							To solve this, I implemented a "lost unit" mechanism. If a unit strays too far and for too long from its relative position in the formation, it is considered lost. At this point it abandons the local pathfinding, and switches temporarily to global pathfinding to find its way back.</br>
+							<video width="800" height="600" controls muted loop="loop"> <!---->
+								<source src="bfmereforged/pathfinding - lost units.mp4" type="video/mp4" />
+								Sorry, your browser does not support the video tag !
+							</video>
+						</p>
+						<p>Again, the correct settings for this are found mostly through trial and error.</p>
+
+						<h2>Scale testing</h2>
+						<p>
+							To test scaling, I roughly recreated miniature versions of some iconic maps from the original games. I then randomly spanwed squads of varying sizes and unit types, and had them move to random destinations on the map.</br>
+							Note that these represent a difficult navigation scenario. The game is inteded to have more open maps, where narrow passages are discouraged. This is both to make the pathfinding look the best it can, and also because RTS in tight spaces doesn't favour having many units, which was the goal for Reforged.</br>
+							<video width="800" height="600" controls muted loop="loop"> <!---->
+								<source src="bfmereforged/pathfinding - arnor.mp4" type="video/mp4" />
+								Sorry, your browser does not support the video tag !
+							</video></br>
+							<video width="800" height="600" controls muted loop="loop"> <!---->
+								<source src="bfmereforged/pathfinding - migration.mp4" type="video/mp4" />
+								Sorry, your browser does not support the video tag !
+							</video></br>
+							<video width="800" height="600" controls muted loop="loop"> <!---->
+								<source src="bfmereforged/pathfinding - redhorn.mp4" type="video/mp4" />
+								Sorry, your browser does not support the video tag !
+							</video></br>
+							<video width="800" height="600" controls muted loop="loop"> <!---->
+								<source src="bfmereforged/pathfinding - stonewain.mp4" type="video/mp4" />
+								Sorry, your browser does not support the video tag !
+							</video></br>
+						</p>
+
+						<h2>Networking</h2>
+						<p>
+							We decided early on that we would not bother with networking for the prototype. The goal was to make it look as best as we could, and then try to recreate it in the engine with all the networking added to it, optimizing it as much as possible.
+						</p>
+						<p>
+							However we did plan it out, to make sure that this wasn't doomed from the start. The idea was to implement a NetLOD system, following the assumption that while the map is huge and has many hundreds of units, the player can only fit so many on their screen. We would use the NetLOD to prioritize squads based on how close they are from the player's screen, and replicate the closer ones first.</br>
+							By our calculations, we could support hundreds of units by having less than a second of latency. A second might feel a lot, but we assumed that in the heat of battle you simply would not notice if the position of a few units were a little off. Your game would locally predict the position of all units, and periodically correct when receiving server updates. As long as we made sure that the lag between server updates wasn't more than a few seconds, the system should still be close enough locally that any visual differences would be minor.
+						</p>
+
+						<h1 id="conclusion">Conclusion</h1>
+							<p>
+								I had a lot of fun working on this. Pathfinding is one of my favourite subjects to work with, and designing this from the ground up was a treat. Overall I am quite pleased with the results, and the Reforged team was too.
+							</p>
+							<p>
+								It's been a while since I left the project, but las I checked with them they were still moving ahead and recreating this prototype inside of Unreal Engine 5.
+							</p>
+						</div>
+					</div>
+
+					<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<section>
+								<h2>Contact</h2>
+								<ul class="icons">
+									<li><a href="mailto:milan.irigoyen@gmail.com" class="icon style2 fa-envelope-o"><span class="label">Email</span></a></li>
+									<li><a href="https://www.linkedin.com/in/milan-irigoyen" class="icon style2 fa-linkedin"><span class="label">LinkedIn</span></a></li>
+									<li><a href="https://git.edrevan.com/public" class="icon style2 fa-gitlab"><span class="label">GitLab</span></a></li>
+									<li><a href="https://github.com/m-irigoyen" class="icon style2 fa-github"><span class="label">GitHub</span></a></li>
+								</ul>
+							</section>
+							<ul class="copyright">
+								<li>All rights reserved</li>
+								<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+								<li>Logo: <a href="https://game-icons.net/">Game-Icons</a></li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/browser.min.js"></script>
+			<script src="../assets/js/breakpoints.min.js"></script>
+			<script src="../assets/js/util.js"></script>
+			<script src="../assets/js/main.js"></script>
+
+	</body>
+</html>
