@@ -1,0 +1,144 @@
+<!DOCTYPE HTML>
+<!--
+	Phantom by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Milan Irigoyen</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="inner">
+
+							<!-- Logo -->
+								<a href="../index.html" class="logo">
+									<span class="symbol"><img src="../images/logo.svg" alt="" /></span><span class="title">MILAN IRIGOYEN</span>
+								</a>
+
+							<!-- Nav -->
+								<nav>
+									<ul>
+										<li><a href="#menu">Menu</a></li>
+									</ul>
+								</nav>
+
+						</div>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<h2>Menu</h2>
+						<ul>
+							<li><a href="#summary">Summary</a></li>
+							<li><a href="#tldr">TL;DR</a></li>
+							<li><a href="#decision">Decision Making System</a></li>
+							<li><a href="#pathfinding">Pathfinding</a></li>
+							<li><a href="#conclusion">Conclusion</a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<h1>Unannounced Project</h1>
+							
+							<h2 id="summary">Summary</h2>
+							<div class="table-wrapper">
+								<table>
+									<tbody>
+										<tr>
+											<td>Company</td>
+											<td><a href="https://www.bhvr.com/">Behaviour Interactive</a></td>
+										</tr>
+										<tr>
+											<td>Date</td>
+											<td>2022 - 2024</td>
+										</tr>
+										<tr>
+											<td>Tech</td>
+											<td>C++ / Unreal Engine 5</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<p>After my contributions to Dead By Daylight, I was recruited to be an AI programmer on a new project for Behaviour.
+							</p>
+							<h2 id="tldr">TL;DR</h2>
+							<ul>
+								<li>Designed and implemented data-driven high-level decision making system for AI characters.</li>
+								<li>Created visualization and edition tools for designers.</li>
+								<li>Designed a 3D pathfinding solution based on flow fields.</li>
+								<li>Implemented gameplay abilities for enemies.</li>
+								<li>Mentoring new hires as part of a buddy system.</li>
+							</ul></p>
+
+							<h2 id="decision">Decision making system</h2>
+							<p>
+								Based on lessons learned from the prototype and external consulting, we decided to use a utility system as the basis for AI in the project.</br>
+								Every AI character would have a list of actions, each being ranked in real time by a set of evaluators that compound into a single numerical value. Actions are then ranked by this value, and chooses one to execute.
+							</p>
+
+							<p>
+								The goal throughout development was to make it data-driven. We wanted designers to have the freedom to create new behaviors without developer support. To this end we leveraged Unreal's data assets as much as we could.
+							</p>
+
+							<p>
+								This included writing visualization tools for designers, and collobarating closely with them to evaluate their need and give them the features they needed.
+							</p>
+
+							<h2 id="pathfinding">Pathfinding consulting</h2>
+							<p>
+								My previous experience with pathfinding came in handy on this project as well, where we had specific needs for the AI. I was one of the early supporters of the use of flow fields, which have the crucial advantage of being a lot more reusable than traditional pathfinding solutions. While this does require more work to setup, it is ultimately one of the most performant solutions to have hundreds of enemies pathfind in real time across large environments.
+							</p>
+							<p>
+								I was not directly involved with the implementation of the system, but as I had previous experience with the technique through personal projects I remained close with the main developer until I left the project, providing help for debugging and edge-case resolution.
+							</p>
+
+							<h2 id="conclusion">Conclusion</h2>
+							<p>
+								As the project has yet to be announced, I will reserve my conclusion for later, when I can dive a bit more into the details of my involvement.
+							</p>
+						</div>
+					</div>
+
+					<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<section>
+								<h2>Contact</h2>
+								<ul class="icons">
+									<li><a href="mailto:milan.irigoyen@gmail.com" class="icon style2 fa-envelope-o"><span class="label">Email</span></a></li>
+									<li><a href="https://www.linkedin.com/in/milan-irigoyen" class="icon style2 fa-linkedin"><span class="label">LinkedIn</span></a></li>
+									<li><a href="https://git.edrevan.com/public" class="icon style2 fa-gitlab"><span class="label">GitLab</span></a></li>
+									<li><a href="https://github.com/m-irigoyen" class="icon style2 fa-github"><span class="label">GitHub</span></a></li>
+								</ul>
+							</section>
+							<ul class="copyright">
+								<li>All rights reserved</li>
+								<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+								<li>Logo: <a href="https://game-icons.net/">Game-Icons</a></li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/browser.min.js"></script>
+			<script src="../assets/js/breakpoints.min.js"></script>
+			<script src="../assets/js/util.js"></script>
+			<script src="../assets/js/main.js"></script>
+
+	</body>
+</html>
