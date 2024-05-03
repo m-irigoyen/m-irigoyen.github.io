@@ -40,22 +40,24 @@
 						<h2>Menu</h2>
 						<ul>
 							<li><a href="#summary">Summary</a></li>
-							<li><a href="#download">Download</a></li>
 							<li><a href="#breakdown">Project Breakdown</a></li>
-							<li><a href="#heuristics">Heuristics AI</a></li>
-							<li><a href="#heuristics-example">Heuristics AI Examples</a></li>
-							<li><a href="#genetics">Genetic AI</a></li>
-							<li><a href="#genetics-example">Genetic AI Examples</a></li>
+							<li><a href="#squads">Squad Formations</a></li>
+							<li><a href="#correction">Formation Correction</a></li>
+							<li><a href="#avoidance">Unit Avoidance</a></li>
+							<li><a href="#global">Global Pathfinding</a></li>
+							<li><a href="#corners">Corner Avoidance</a></li>
+							<li><a href="#lost">Lost Units</a></li>
+							<li><a href="#scale">Scale Testing</a></li>
+							<li><a href="#networking">Networking</a></li>
 							<li><a href="#conclusion">Conclusion</a></li>
-							<li><a href="#emergence">Emergence Appreciation Corner</a></li>
 						</ul>
 					</nav>
 
 				<!-- Main -->
 					<div id="main">
 						<div class="inner">
-							<h1>Genetic AI</h1>
-							<span class="image main"><img src="geneticai/title.png" alt="" /></span>
+							<h1>Battle For Middle Earth : Reforged</h1>
+							<span class="image main"><img src="bfmereforged/title.png" alt="" /></span>
 							
 							<h1 id="summary">Summary</h1>
 							<div class="table-wrapper">
@@ -63,45 +65,28 @@
 									<tbody>
 										<tr>
 											<td>Date</td>
-											<td>2017 - 2018 (eight months)</td>
+											<td>2020 - 2021</td>
 										</tr>
 										<tr>
 											<td>Tech</td>
-											<td>Custom engine : C++ / SFML / GLSL</td>
-										</tr>
-										<tr>
-											<td>Collaborators</td>
-											<td><a href="https://www.artstation.com/chamerlat">Luc Chamerlat</a> (Artist)</td>
+											<td>Custom engine : C++ / SFML / Qt</td>
 										</tr>
 									</tbody>
 								</table>
 							</div>
-							<p>Compete against different bots in this tech demo of a simple racing game.
+							<p>
+								Pathfinding prototype for the Battle For Middle Earth: Reforged fan project.
 							<ul>
-								<li>Artificial intelligence bots using <a href="https://en.wikipedia.org/wiki/Boids">steering behaviors</a> and <a href="https://en.wikipedia.org/wiki/Genetic_algorithm">genetic algorihms</a></li>
-								<li>Fully functional custom UI system</li>
-								<li>Features VFX breakdown of particle systems and shaders</li>
+								<li>Squad formation and pathfinding mixing local and global pathfinding.</li>
+								<li>Supports hundreds of units in real time.</li>
+								<li>Features multiple unit types, each with different sizes and configurable stats.</li>
 							</ul></p>
 							
-							<h1 id="download">Download</h1>
-							The code can be found <a href="https://git.edrevan.com/edrevan/podracer">on my GitLab</a>.
-							<div class="table-wrapper">
-								<table>
-									<tbody>
-										<tr>
-											<td>Windows</td>
-											<td><a href="geneticai/GeneticAI-winx32.zip">32 bit</a></td>
-											<td><a href="geneticai/GeneticAI-winx64.zip">64 bit</a></td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-							
 							<p>
-							<video controls muted> <!--autoplay="autoplay" loop="loop"-->
-								<source src="geneticai/genetic-v-steering2.mp4" type="video/mp4" />
-								Sorry, your browser does not support the video tag !
-							</video>
+								<video width="800" height="600" controls muted> <!---->
+									<source src="bfmereforged/pathfinding - arnor.mp4" type="video/mp4" />
+									Sorry, your browser does not support the video tag !
+								</video>
 							</p>
 							
 							<h1 id="breakdown">Project breakdown</h1>
@@ -142,7 +127,7 @@
 								The good thing about this plan is that leverages the strengths of both methods. Global pathfinding is hard on the processing power, but good with long distances and precision. Local pathfinding is fast (useful with the number of units we want) and resilient to change and obstacles.
 							</p>
 
-							<h1>Squads and formations</h1>
+							<h1 id="squads">Squads and formations</h1>
 							<h2>Getting the feel right</h2>
 							<h3>Changing formations</h3>
 							<p>
@@ -171,7 +156,7 @@
 								</video>
 							</p>
 
-							<h3>Formation correction</h3>
+							<h3 id="correction">Formation correction</h3>
 							<p>
 								This is where the first major problem appeared. Units always moved forward at full speed, causing stragglers to never catch up. It made the formation look disjointed and messy, far from the neat look the original games had.</br>
 								<video width="800" height="600" controls muted loop="loop"> <!---->
@@ -194,7 +179,7 @@
 								<img src="bfmereforged/forest_easy_doubleline_correction.gif" alt="" />
 							</p>							
 
-							<h2>Unit avoidance</h2>
+							<h2 id="avoidance">Unit avoidance</h2>
 							<p>
 								Now that this works, it's time to add more squads.</br>
 								Unit avoidance took me a long time to get right. The basic idea is to add an avoidance force for each unit in close proximity. It then becomes a trial and error dance of tweaking the values a little, observing the results, and getting the parameters just right.</br>
@@ -222,11 +207,11 @@
 								</video></br>
 							</p>
 
-							<h2>Global Pathfinding</h2>
+							<h2 id="global">Global Pathfinding</h2>
 							<p>
 								The global pathfinding part was in theory simple, but got more and more complexe as we began to fine tune the system. The initial plan was to create a nav mesh (as most game engines do) and use the <a href="https://en.wikipedia.org/wiki/A*_search_algorithm">A* algorithm</a> to navigate it.</br>
 								The creation of the static geometry and its triangulation is actually quite complex, and would deserve its own explanation page. For the sake of clarity I won't get into it here (but that was a fun side project !).</br>
-								The two main problems I encountered was corner avoidance, and what I called "splitting geometry".</p>
+								The two main problems I encountered were corner avoidance and lost units.</p>
 							</p>
 
 							<h3>Geometry repulsion force</h3>
@@ -244,7 +229,7 @@
 								</video>
 							</p>
 
-							<h3>Corner avoidance</h3>
+							<h3 id="corners">Corner avoidance</h3>
 							<p>
 								The problem is, as mentionned above A* does not support changing width. This causes a problem when cornering. If the squad is walking in a line five units wide, when rounding a corner the leader must take that into account. If the leader aims to clear the corner without any margin, then some units are driven directly into the wall. This is of course unacceptable.</br>
 								The solution is simple in theory : just add some padding to the corners. But as always when geometry and navmeshes are concerned, in practice this can be quite complex. And remember the whole thing has to be as optimized as possible, the goal is to have dozens of units doing this on large maps !
@@ -267,8 +252,10 @@
 								<li>Cut all the previous points and replace them by this one.</li>
 								<li>Restart the algorithm from the new point.</li>
 							</ul>
-							<img src="bfmereforged/BFME - pathfinding - smoothing2.gif" alt="" /></br>
+							<img src="bfmereforged/BFME - pathfinding - smoothing1.gif" alt="" /></br>
 							Repeat until the entire path is smoothed.</br>
+							<img src="bfmereforged/BFME - pathfinding - smoothing2.gif" alt="" /></br>
+							
 							<img src="bfmereforged/BFME - pathfinding - smoothing3.gif" alt="" />
 						</p>
 
@@ -286,7 +273,7 @@
 							</video>
 						</p>
 
-						<h3>Splitting geometry</h3>
+						<h3 id="lost">Lost Units</h3>
 						<p>
 							This is the biggest problem I had to face. When local pathfinding is faced with an obstacle, it has no notion of right or wrong. It only sees force, pushing it towards its goal. So what happens when they take the wrong path ? Without any external help, the stragglers will not know to backtrack to take the proper branch in the path.</br>
 							To solve this, I implemented a "lost unit" mechanism. If a unit strays too far and for too long from its relative position in the formation, it is considered lost. At this point it abandons the local pathfinding, and switches temporarily to global pathfinding to find its way back.</br>
@@ -297,7 +284,7 @@
 						</p>
 						<p>Again, the correct settings for this are found mostly through trial and error.</p>
 
-						<h2>Scale testing</h2>
+						<h2 id="scale">Scale testing</h2>
 						<p>
 							To test scaling, I roughly recreated miniature versions of some iconic maps from the original games. I then randomly spanwed squads of varying sizes and unit types, and had them move to random destinations on the map.</br>
 							Note that these represent a difficult navigation scenario. The game is inteded to have more open maps, where narrow passages are discouraged. This is both to make the pathfinding look the best it can, and also because RTS in tight spaces doesn't favour having many units, which was the goal for Reforged.</br>
@@ -346,7 +333,6 @@
 								<ul class="icons">
 									<li><a href="mailto:milan.irigoyen@gmail.com" class="icon style2 fa-envelope-o"><span class="label">Email</span></a></li>
 									<li><a href="https://www.linkedin.com/in/milan-irigoyen" class="icon style2 fa-linkedin"><span class="label">LinkedIn</span></a></li>
-									<li><a href="https://git.edrevan.com/public" class="icon style2 fa-gitlab"><span class="label">GitLab</span></a></li>
 									<li><a href="https://github.com/m-irigoyen" class="icon style2 fa-github"><span class="label">GitHub</span></a></li>
 								</ul>
 							</section>
