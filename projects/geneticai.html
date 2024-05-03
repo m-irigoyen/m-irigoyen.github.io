@@ -39,6 +39,7 @@
 					<nav id="menu">
 						<h2>Menu</h2>
 						<ul>
+							<li><a href="#tldr">TL;DR</a></li>
 							<li><a href="#summary">Summary</a></li>
 							<li><a href="#download">Download</a></li>
 							<li><a href="#breakdown">Project Breakdown</a></li>
@@ -56,6 +57,18 @@
 						<div class="inner">
 							<h1>Genetic AI</h1>
 							<span class="image main"><img src="geneticai/title.png" alt="" /></span>
+
+							<h2 id="tldr">TL;DR</h2>
+							<p>
+								<ul>
+									<li>Implemented a near-perfect copy of the physics engine of an existing mini game.</li>
+									<li>Designed and implemented multiple bots for the game using a variety of AI techniques.</li>
+									<li>The strongest bot currently sits at rank ~400 on <a href="https://www.codingame.com/multiplayer/bot-programming/mad-pod-racing">Codingame</a> out of 200 000 bots.</li>
+									<li>Custom engine based on the <a href="https://www.sfml-dev.org/">SFML library.</a></li>
+									<li>Custom particle system for engine trails, and shaders for the ships and shields.</li>
+									<li>Race against the bots yourself !</li>
+								</ul>
+							</p>
 							
 							<h1 id="summary">Summary</h1>
 							<div class="table-wrapper">
@@ -77,11 +90,6 @@
 								</table>
 							</div>
 							<p>Compete against different bots in this tech demo of a simple racing game.
-							<ul>
-								<li>Artificial intelligence bots using <a href="https://en.wikipedia.org/wiki/Boids">steering behaviors</a> and <a href="https://en.wikipedia.org/wiki/Genetic_algorithm">genetic algorihms</a></li>
-								<li>Fully functional custom UI system</li>
-								<li>Features VFX breakdown of particle systems and shaders</li>
-							</ul></p>
 							
 							<h1 id="download">Download</h1>
 							The code can be found <a href="https://git.edrevan.com/edrevan/podracer">on my GitLab</a>.
@@ -248,6 +256,11 @@ score = (nb of checkpoints my runner passed - nb of checkpoints the opponent run
 							<h1 id="conclusion">Conclusion</h1>
 							<p>The genetic algorithm is a major improvement over a heuristics based AI for specific cases. The emergence of cooperative behavior or the use of collisions can give pods a crucial advantage during a race. It is however difficult to implement and optimize to a usable point. Plus the behavior is dependent on a lot of factors that require lengthy experimentation, and it takes longer to compute than a heuristics algorithm.</p>
 							<p>Even if the genetic AI is stronger overall, I could never have implemented it in time for the original contest. I remain convinced that carefuly chosen heuristics are a better choice for this kind of game project overall.</p>
+
+							<p>
+								But overall, the bot's strength cannot be denied !
+								<span class="image main"><img src="geneticai/bragging_rights.PNG" alt="" /></span>
+							</p>
 							
 							<h1 id="emergence">Emergence Appreciation Corner</h1>
 							<p>Let's just take a moment to appreciate emergence and why its awesome. Again, team red is the genetic AI, team blue is the heuristics AI.</p>
